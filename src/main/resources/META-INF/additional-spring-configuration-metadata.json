@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "jxls.template.path",
+      "type": "java.lang.String",
+      "description": "Description for jxls.template.path."
+    }
+  ] }
