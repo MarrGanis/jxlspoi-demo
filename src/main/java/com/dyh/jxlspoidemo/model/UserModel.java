@@ -1,24 +1,30 @@
 package com.dyh.jxlspoidemo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import java.util.Map;
 
-@AllArgsConstructor
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserModel {
     private Integer id;
 
-    private String name;
+    private String nameType;
 
-    private String sex;
+    private String firstName;
 
-    private Integer age;
+    private String lastName;
 
-    private String remark;
+    private Map<String,String> resMap;
 
-    private Date date;
+    public UserModel(Integer id, String nameType, String firstName, String lastName) {
+        this.id = id;
+        this.nameType = nameType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
-    private String link;
 }

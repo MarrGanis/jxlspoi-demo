@@ -1,6 +1,7 @@
 package com.dyh.jxlspoidemo.jxls.utils;
 
 
+import com.dyh.jxlspoidemo.model.UserModel;
 import org.jxls.area.Area;
 import org.jxls.builder.AreaBuilder;
 import org.jxls.builder.xls.XlsCommentAreaBuilder;
@@ -110,4 +111,14 @@ public class ExcelUtils {
     public WritableCellValue getLink(String address, String title) {
         return new WritableHyperlink(address, title);
     }
+
+    /**
+     * 双循环方法
+     */
+    // resMap为空值
+    public String provideData(UserModel u,String nameType,String title){
+        return u.getResMap().get(u.getId() + nameType + title);
+    }
+
+
 }

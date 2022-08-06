@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,20 +21,43 @@ public class JxlsPoiDemoTests {
     @Autowired
     private ExcelService excelService;
 
-
     @Test
-    public void contextLoads() {
-        Map<String, Object> params = new HashMap();
-        List<UserModel> list = new ArrayList<>();
-        list.add(new UserModel(1, "test01", "男", 25, "tttttttttt",new Date(),"htpp://wwww.baidu.com"));
-        list.add(new UserModel(2, "test02", "男", 20, "tttttttttt",new Date(),"htpp://wwww.baidu.com"));
-        list.add(new UserModel(3, "test04", "女", 25, "ttttddddasdadatttttt",new Date(),"htpp://wwww.baidu.com"));
-        list.add(new UserModel(4, "test08", "男", 20, "ttttttdasdatttt",new Date(),"htpp://wwww.baidu.com"));
-        list.add(new UserModel(5, "test021", "女", 25, "ttttdatttttt",new Date(),"htpp://wwww.baidu.com"));
-        list.add(new UserModel(7, "test041", "男", 25, "ttdadatttttttt",new Date(),"htpp://wwww.baidu.com"));
+    public void contextLoads02() {
+        Map<String, Object> outerMap = new HashMap();
 
-        params.put("list", list);
-        excelService.getExcel("t1.xlsx", params, new File("D:\\test05.xlsx"));
+        // 纵向循环
+        List<UserModel> list = new ArrayList<>();
+        list.add(new UserModel(1, "ChineseName","莉","丁"));
+//
+        list.add(new UserModel(2, "EnglishName","Jane","Martin"));
+//
+        list.add(new UserModel(3, "ChineseName","建国","川"));
+//
+        list.add(new UserModel(4, "ChineseName","建国","川"));
+
+        list.add(new UserModel(7, "EnglishName","John","Martin"));
+        list.add(new UserModel( 7, "ChineseName","荣耀","王"));
+
+        // 横向循环
+        List<String> nameTypes = new ArrayList<>();
+        nameTypes.add("EnglishName");
+        nameTypes.add("ChineseName");
+
+        Map<String,String> tempMap = new HashMap<>();
+
+        // 把list中的数据灌入到tempMap中
+        // key1: 纵    key2: 横   key3： 横的条目
+        for (UserModel model : list) {
+            tempMap.put(model.getId()+model.getNameType()+"firstName",model.getFirstName());
+            tempMap.put(model.getId()+model.getNameType()+"lastName",model.getLastName());
+            //todo：去重的功能如何做？
+            model.setResMap(tempMap);
+        }
+
+        outerMap.put("list", list);
+        outerMap.put("nameTypes",nameTypes);
+
+        excelService.getExcel("t2.xlsx", outerMap, new File("D:\\test06.xlsx"));
     }
 
 
